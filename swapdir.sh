@@ -16,14 +16,24 @@ function TestDirectory
 TestDirectory $1
 TestDirectory $2
 
-function Swap
+function MoveToTmp
 {
   dir=$(mktemp -d)
   mv $1 $dir
-  mv $2 $1
   base=$(basename $1)
-  mv $dir/$base $2
-  rmdir $dir
+  echo "$dir/$base"
+}
+
+function Swap
+{
+  $one = $(MoveToTmp $1)
+  $two = $(MoveToTmp $2)
+  
+  mv $one $2
+  mv $two $1
+  
+  rmdir $(dirname $one)
+  rmdir $(dirname $two)
 }
 
 Swap $1 $2
