@@ -45,8 +45,8 @@ function MakeAbsolute
 TestDirectory $1
 TestDirectory $2
 
-$d1=$(MakeAbsolute $1)
-$d2=$(MakeAbsolute $2)
+d1=$(MakeAbsolute $1)
+d2=$(MakeAbsolute $2)
 
 TestDirectory $d1
 TestDirectory $d2
