@@ -34,6 +34,7 @@ function MakeAbsolute
   if echo $1 | grep '^/' > /dev/null
   then
     #absolute=1
+    echo $1
   else
     #absoute=0
     echo -n $(pwd)
