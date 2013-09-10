@@ -45,6 +45,19 @@ function Swap
   $one = $(MoveToTmp $1)
   $two = $(MoveToTmp $2)
   
+  if [ $(SysTest $one) != "ok" ]
+  then
+    echo "Failed to move $1 directory"
+    echo "Fallback"
+  fi
+  if [ $(SysTest $two) != "ok" ]
+  then
+    mv $one $1
+    echo "Failed to move $2 directory"
+    echo "Fallback"
+    exit
+  fi
+  
   mv $one $2
   mv $two $1
   
