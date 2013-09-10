@@ -38,18 +38,18 @@ function MakeAbsolute
   else
     #absoute=0
     echo -n $(pwd)
-    echo $1
+    echo "/$1"
   fi  
 }
 
 TestDirectory $1
 TestDirectory $2
 
-$1 = $(MakeAbsolute $1)
-$2 = $(MakeAbsolute $2)
+$d1=$(MakeAbsolute $1)
+$d2=$(MakeAbsolute $2)
 
-TestDirectory $1
-TestDirectory $2
+TestDirectory $d1
+TestDirectory $d2
 
 declare -a on_exit_items
 
@@ -104,4 +104,4 @@ function Swap
   mv $two $1
 }
 
-Swap $1 $2
+Swap $d1 $d2
