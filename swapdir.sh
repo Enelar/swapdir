@@ -71,6 +71,7 @@ function Swap
   then
     echo "Failed to move $1 directory"
     echo "Fallback"
+    exit
   fi
   if [ $(SysTest $two) != "ok" ]
   then
