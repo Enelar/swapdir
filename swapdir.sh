@@ -75,7 +75,7 @@ function add_on_exit()
 function MoveToTmp
 {
   dir=$(mktemp -d)
-  add_on_exit rmdir $dir
+  add_on_exit 'rmdir' '$dir'
   mv $1 $dir
   base=$(basename $1)
   echo "$dir/$base"
@@ -83,8 +83,8 @@ function MoveToTmp
 
 function Swap
 {
-  $one = $(MoveToTmp $1)
-  $two = $(MoveToTmp $2)
+  one = $(MoveToTmp $1)
+  two = $(MoveToTmp $2)
   
   if [ $(SysTest $one) != "ok" ]
   then
