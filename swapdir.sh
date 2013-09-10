@@ -29,6 +29,24 @@ function TestDirectory
   fi
 }
 
+function MakeAbsolute
+{
+  if echo $1 | grep '^/' > /dev/null
+  then
+    #absolute=1
+  else
+    #absoute=0
+    echo -n $(pwd)
+    echo $1
+  fi  
+}
+
+TestDirectory $1
+TestDirectory $2
+
+$1 = $(MakeAbsolute $1)
+$2 = $(MakeAbsolute $2)
+
 TestDirectory $1
 TestDirectory $2
 
