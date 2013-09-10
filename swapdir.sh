@@ -1,12 +1,28 @@
 #!/bin/bash
-function TestDirectory 
+function SysTest
 {
   if [ -L "$1" ];
+  then
+    echo "sym"
+  else
+    if [ ! -d "$1" ];
+    then
+      echo "dir"
+    else
+      echo 'ok'
+    fi
+  fi
+}
+
+function TestDirectory 
+{
+  res=$(SysTest $1)
+  if [ $res == "sym" ]
   then
     echo "Parameter '$1' is symlink"
     exit
   fi
-  if [ ! -d "$1" ];
+  if [ $res == "dir" ];
   then
     echo "Parameter '$1' is not directory"
     exit
