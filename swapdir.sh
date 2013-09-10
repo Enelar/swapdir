@@ -83,8 +83,8 @@ function MoveToTmp
 
 function Swap
 {
-  one = $(MoveToTmp $1)
-  two = $(MoveToTmp $2)
+  one=$(MoveToTmp $1)
+  two=$(MoveToTmp $2)
   
   if [ $(SysTest $one) != "ok" ]
   then
