@@ -32,9 +32,31 @@ function TestDirectory
 TestDirectory $1
 TestDirectory $2
 
+declare -a on_exit_items
+
+function on_exit()
+{
+    for i in "${on_exit_items[@]}"
+    do
+        echo "on_exit: $i"
+        eval $i
+    done
+}
+
+function add_on_exit()
+{
+    local n=${#on_exit_items[*]}
+    on_exit_items[$n]="$*"
+    if [[ $n -eq 0 ]]; then
+        echo "Setting trap"
+        trap on_exit EXIT
+    fi
+}
+
 function MoveToTmp
 {
   dir=$(mktemp -d)
+  add_on_exit rmdir $dir
   mv $1 $dir
   base=$(basename $1)
   echo "$dir/$base"
@@ -60,9 +82,6 @@ function Swap
   
   mv $one $2
   mv $two $1
-  
-  rmdir $(dirname $one)
-  rmdir $(dirname $two)
 }
 
 Swap $1 $2
